@@ -12,14 +12,14 @@ RUN apt-get update && apt-get install -y --no-install-recommends ca-certificates
 
 RUN mkdir /usr/lib/java-1.8.0 \
         && /usr/bin/wget http://download.oracle.com/otn-pub/java/jdk/8u65-b17/server-jre-8u65-linux-x64.tar.gz --no-cookies --header 'Cookie: oraclelicense=accept-securebackup-cookie' \
-        && tar -C /usr/lib/java-1.8.0 -zxf server-jre-8u65-linux-x64.tar.gz \
+        && tar -C /usr/lib/java-1.8.0 --strip-components=1 -zxf server-jre-8u65-linux-x64.tar.gz \
         && rm -f server-jre-8u65-linux-x64.tar.gz
 
 COPY java.env.sh /etc/profile.d/java.sh
 
 RUN mkdir /usr/lib/jolokia \
         && /usr/bin/wget https://github.com/rhuss/jolokia/releases/download/v1.3.2/jolokia-1.3.2-bin.tar.gz \
-        && tar -C /usr/lib/jolokia -zxf jolokia-1.3.2-bin.tar.gz \
+        && tar -C --strip-components=1 /usr/lib/jolokia -zxf jolokia-1.3.2-bin.tar.gz \
         && rm -f jolokia-1.3.2-bin.tar.gz
 
 CMD /bin/true
